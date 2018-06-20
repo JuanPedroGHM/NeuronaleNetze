@@ -7,7 +7,9 @@ Activation functions which can be used within neurons.
 from numpy import exp
 from numpy import divide
 from numpy import ones
+from numpy import sum
 from numpy import asarray
+import numpy as np
 
 
 class Activation:
@@ -63,13 +65,24 @@ class Activation:
 
     @staticmethod
     def softmax(netOutput):
-        # Here you have to code the softmax function
-        pass
+        normFactor = sum(exp(netOutput))
+        return exp(netOutput)/normFactor
         
     @staticmethod
     def softmaxPrime(netOutput):
-        # Here you have to code the softmax function
-        pass
+        n = len(netOutput)
+        jacobi = np.zeros((n, n))
+        for i in range(n): #row
+            for j in range(n): #column
+                if i == j:
+                    jacobi[i][j] = netOutput[i] * (1 - netOutput[i])
+
+                else:
+                    jacobi[i][j] = -1.0 * netOutput[i] * netOutput[j]
+
+        return jacobi
+
+
         
     @staticmethod
     def getActivation(str):
