@@ -75,17 +75,12 @@ def main():
     MLPClassifier.train()
     print("Done..")
 
-    print("\nDropoutMLP has been training..")
-    dropoutClassifier.train()
-    print("Done..")
-
     # Do the recognizer
     # Explicitly specify the test set to be evaluated
     # stupidPred = myStupidClassifier.evaluate()
     # perceptronPred = myPerceptronClassifier.evaluate()
     # lrPred = myLRClassifier.evaluate()
     mlpPred = MLPClassifier.evaluate()
-    dropoutMLPPred = dropoutClassifier.evaluate()
     
     # Report the result
     print("=========================")
@@ -106,15 +101,13 @@ def main():
     print("\nResult of the MLP recognizer:")
     # evaluator.printComparison(data.testSet, lrPred)    
     evaluator.printAccuracy(data.testSet, mlpPred)
-    evaluator.printAccuracy(data.testSet, dropoutMLPPred)
 
     # Draw
     # plot = PerformancePlot("MLP validation")
     # plot.draw_performance_epoch(MLPClassifier.performances,
     #                             MLPClassifier.epochs)
 
-    plt.plot(range(MLPClassifier.epochs), MLPClassifier.performances, 'r--',
-             range(dropoutClassifier.epochs), dropoutClassifier.performances, 'b')
+    plt.plot(range(MLPClassifier.epochs), MLPClassifier.performances, 'r--')
     plt.show()
     
     
